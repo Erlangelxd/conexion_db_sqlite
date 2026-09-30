@@ -38,3 +38,26 @@ cursor.execute("INSERT INTO clientes (nombre, telefono) VALUES ('María López',
 
 cursor.execute("INSERT INTO productos (nombre, precio, stock) VALUES ('Paracetamol 500mg', 1.50, 100)")
 cursor.execute("INSERT INTO productos (nombre, precio, stock) VALUES ('Ibuprofeno 400mg', 2.00, 50)")
+
+conexion.commit()
+
+cursor.execute("INSERT INTO ventas (id_cliente, id_producto, cantidad, fecha) VALUES (1, 1, 2, '2026-09-29')")
+cursor.execute("INSERT INTO ventas (id_cliente, id_producto, cantidad, fecha) VALUES (2, 2, 1, '2026-09-29')")
+
+cursor.execute("UPDATE productos SET stock = stock - 2 WHERE id_producto = 1")
+cursor.execute("UPDATE productos SET stock = stock - 1 WHERE id_producto = 2")
+
+conexion.commit()
+
+cursor.execute('''
+    SELECT v.id_venta, c.nombre, p.nombre, v.cantidad, (v.cantidad * p.precio) AS total, v.fecha
+    FROM ventas v
+    JOIN clientes c ON v.id_cliente = c.id_cliente
+    JOIN productos p ON v.id_producto = p.id_producto
+''')
+
+ventas = cursor.fetchall()
+for venta in ventas:
+    print(venta)
+
+conexion.close()
