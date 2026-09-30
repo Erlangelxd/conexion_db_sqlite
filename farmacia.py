@@ -32,3 +32,9 @@ cursor.execute('''
         FOREIGN KEY (id_producto) REFERENCES productos (id_producto)
     )
 ''')
+
+cursor.execute("INSERT INTO clientes (nombre, telefono) VALUES ('Carlos Gómez', '12213265')")
+cursor.execute("INSERT INTO clientes (nombre, telefono) VALUES ('María López', '95836411')")
+
+cursor.execute("INSERT INTO productos (nombre, precio, stock) VALUES ('Paracetamol 500mg', 1.50, 100)")
+cursor.execute("INSERT INTO productos (nombre, precio, stock) VALUES ('Ibuprofeno 400mg', 2.00, 50)")
